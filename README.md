@@ -109,6 +109,35 @@ reply = message.reply
 reply.text = "i'll do it after going to moe's"
 bot.send_message(reply)
 ```
+## Keyboard example
+
+```
+@message.reply do |reply|
+  reply.text = "Your text tu send"
+  k = TelegramBot::ReplyKeyboardMarkup.new
+  k.keyboard = [["Option1"], ["Option2"]]
+  k.resize_keyboard = true
+  k.one_time_keyboard = true
+  reply.reply_markup = k
+  reply.send_with(@ReplaceWithYourBotInstance)
+end
+```
+
+You can handle the answer as a normal message, but remember to hide the keyboard:
+
+```
+@message.reply do |reply|
+  case input
+  when /^option1/i
+    ...
+  when /^option2/i
+    ...
+  end
+  reply.reply_markup = TelegramBot::ReplyKeyboardHide.new
+  reply.send_with(@ReplaceWithYourBotInstance)
+  complete
+end
+```
 
 ## Contributing
 
